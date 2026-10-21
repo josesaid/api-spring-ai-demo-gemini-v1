@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>api-spring-ai-demo-gemini-v1</title>
+  <meta name="description" content="Demo project built with Spring Boot 4 + Spring AI 2.0 that integrates Google&#x27;s Gemini model (via spring-ai-starter-model-google-genai) to expose a chat service through a REST API.">
+  <!-- Theme: Paper (warm cream paper with a serif typeface). Each repository uses a different Pages theme. -->
+  <style>
+    :root { --bg: #f5efe3; --panel: #fffdf7; --fg: #2b2620; --muted: #6b6255; --accent: #8a3b12;
+  --border: #d9cdb6; --code: #f0e8d6; --font: Georgia,"Times New Roman",serif;
+  --head: #2b2620; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; background: var(--bg); color: var(--fg); font: 16px/1.6 var(--font);
+      padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+    main { max-width: 880px; margin: 0 auto; padding: 40px 0 64px; }
+    .hero { background: var(--panel); border: 2px solid var(--border); border-radius: 18px; padding: 28px; margin-bottom: 28px; }
+    h1 { font-size: 2.1rem; margin: 0 0 8px; color: var(--head); line-height: 1.2; }
+    h2 { font-size: 1.35rem; margin: 40px 0 12px; color: var(--head); border-bottom: 2px solid var(--border); padding-bottom: 6px; }
+    h3 { font-size: 1.1rem; margin: 26px 0 8px; color: var(--accent); }
+    p, li { color: var(--fg); }
+    a { color: var(--accent); font-weight: 600; }
+    .panel { background: var(--panel); border: 2px solid var(--border); border-radius: 14px; padding: 22px 26px; }
+    .wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--panel); }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--head); }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9rem; }
+    code { background: var(--code); padding: 1px 6px; border-radius: 5px; }
+    pre { background: var(--code); padding: 14px; border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; max-width: 100%; }
+    pre code { background: none; padding: 0; }
+    img { max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); }
+    .cta { display:inline-block; margin: 14px 10px 0 0; padding: 8px 16px; border: 2px solid var(--accent); border-radius: 10px; text-decoration: none; color: var(--accent); }
+    footer { margin-top: 48px; color: var(--muted); font-size: .85rem; border-top: 2px solid var(--border); padding-top: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <h1>api-spring-ai-demo-gemini-v1</h1>
+    <p>Demo project built with Spring Boot 4 + Spring AI 2.0 that integrates Google&#x27;s Gemini model (via spring-ai-starter-model-google-genai) to expose a chat service through a REST API.</p>
+    <a class="cta" href="https://github.com/josesaid/api-spring-ai-demo-gemini-v1">View source on GitHub</a>
+    <a class="cta" href="https://josesaid.github.io/">Portfolio index</a>
+  </section>
+  <article class="panel">
+<p>Demo project built with <strong>Spring Boot 4</strong> + <strong>Spring AI 2.0</strong> that integrates Google's <strong>Gemini</strong> model (via <code>spring-ai-starter-model-google-genai</code>) to expose a chat service through a REST API.</p>
+<h2>Description</h2>
+<p>The application starts a web server (port <code>8087</code>) with an endpoint that receives a question from the user and forwards it to the configured Gemini model, returning the AI-generated response. It also includes a <code>CommandLineRunner</code> that runs a sample query against Gemini on startup and prints it to the console, as a quick sanity check of the integration.</p>
+<h2>Technologies</h2>
+<ul>
+<li>Java 21</li>
+<li>Spring Boot 4.1.0</li>
+<li>Spring AI 2.0.0 (<code>spring-ai-starter-model-google-genai</code>)</li>
+<li>Maven (with the <code>mvnw</code> wrapper)</li>
+<li>Model: <code>gemini-3.5-flash</code></li>
+</ul>
+<h2>Project structure</h2>
+<pre><code>src/main/java/com/mx/development/jose/said/
+├── ApiSpringAiDemoV1Application.java   # Main class (Spring Boot entry point)
+├── controller/
+│   └── ChatController.java             # Exposes the chat REST endpoint
+├── service/
+│   ├── ChatService.java                # Chat service contract
+│   └── ChatServiceImpl.java            # Implementation using Spring AI's ChatClient
+└── runner/
+    └── ChatRunner.java                 # Runs a sample query on application startup
+
+src/main/resources/
+├── application.yml                     # General configuration (port, active profile, logging)
+└── application-gemini.yml              # Gemini provider-specific configuration (API key, model)
+</code></pre>
+<h2>Prerequisites</h2>
+<ul>
+<li>JDK 21 or higher</li>
+<li>A <strong>Google Gemini API key</strong>, generated at:</li>
+</ul>
+<p>👉 <strong>https://aistudio.google.com/projects</strong></p>
+<h2>Configuration</h2>
+<p>The project uses the <code>gemini</code> profile, active by default in <code>application.yml</code>. The API key is read from the <code>API_KEY</code> environment variable (see <code>application-gemini.yml</code>):</p>
+<pre><code class="language-yaml">spring:
+  ai:
+    google:
+      genai:
+        api-key: ${API_KEY}
+        chat:
+          options:
+            model: gemini-3.5-flash
+</code></pre>
+<p>Before running the application, set the environment variable with your API key:</p>
+<pre><code class="language-bash">export API_KEY=your_gemini_api_key
+</code></pre>
+<h2>Running the application</h2>
+<p>Using the Maven Wrapper included in the project:</p>
+<pre><code class="language-bash">./mvnw spring-boot:run
+</code></pre>
+<p>On Windows:</p>
+<pre><code class="language-bash">mvnw.cmd spring-boot:run
+</code></pre>
+<p>The application will be available at <code>http://localhost:8087</code>.</p>
+<p>On startup, you'll see the <code>ChatRunner</code>'s response to the sample question "¿Qué es Spring AI?" printed to the console.</p>
+<h2>API usage</h2>
+<h3>Chat endpoint</h3>
+<pre><code>GET /api/v1/chat-service/chat?question={question}
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash">curl &quot;http://localhost:8087/api/v1/chat-service/chat?question=%C2%BFQu%C3%A9%20es%20Spring%20AI%3F&quot;
+</code></pre>
+<p><strong>Response:</strong> plain text with the response generated by the Gemini model.</p>
+<h2>Notes</h2>
+<ul>
+<li>Debug logging for Spring AI and the web client is enabled (<code>DEBUG</code>) in <code>application.yml</code>, which is useful for inspecting requests/responses to the model.</li>
+<li>The commented-out block in <code>ChatRunner.java</code> shows an example of using a <em>system prompt</em> together with the user message to customize the assistant's behavior (e.g., forcing responses in Spanish as a Spring software architect).</li>
+</ul>
+  </article>
+  <footer>Source and documentation: <a href="https://github.com/josesaid/api-spring-ai-demo-gemini-v1">github.com/josesaid/api-spring-ai-demo-gemini-v1</a> · <a href="https://josesaid.github.io/">josesaid.github.io</a></footer>
+</main>
+</body>
+</html>

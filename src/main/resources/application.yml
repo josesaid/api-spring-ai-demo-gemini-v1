@@ -1,0 +1,16 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: api-spring-ai-demo-v1
+  profiles:
+    active: gemini
+logging:
+  level:
+    org:
+      springframework:
+        ai: DEBUG
+        web:
+          client: DEBUG
+# Provider
+# https://aistudio.google.com/api-keys
