@@ -1,5 +1,7 @@
 # api-spring-ai-demo-gemini-v1
 
+![Java: 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white) ![Spring_Boot: 4.1.0](https://img.shields.io/badge/Spring_Boot-4.1.0-6DB33F?logo=springboot&logoColor=white) ![Spring_AI: 2.0.0](https://img.shields.io/badge/Spring_AI-2.0.0-6DB33F) ![Model: Google_Gemini](https://img.shields.io/badge/Model-Google_Gemini-412991?logo=googlegemini&logoColor=white)
+
 **Project page:** https://josesaid.github.io/api-spring-ai-demo-gemini-v1/
 
 Demo project built with **Spring Boot 4** + **Spring AI 2.0** that integrates Google's **Gemini** model (via `spring-ai-starter-model-google-genai`) to expose a chat service through a REST API.
